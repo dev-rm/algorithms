@@ -69,7 +69,7 @@ itemList.insert(13)
 itemList.insert(15)
 itemList.dump_list()
 
-# traverse the list
+# traverse the linked list
 print("Item count: ", itemList.get_count())
 print("Finding item: ", itemList.find(13))
 print("Finding item: ", itemList.find(78))

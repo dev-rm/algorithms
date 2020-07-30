@@ -1,4 +1,8 @@
-### Peak Finder
+|   |   |   |   |
+|:-:|:-:|:-:|:-:|
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |### Peak Finder
 #### One dimensional version
 
 | a | b | c | d | e | f | g | h | i |
@@ -32,12 +36,62 @@ To lower the asymptotic complexity, use **Divide and Conquer Algorithm** and rec
 - Else If a[n/2] &lt; a[n/2+1] then only look at right half i.e n/2+1...n to look for a peak.
 - else n/2 position is a peak <br>
 If T(n) is the work this algorithm does on input of size n, then <br>
-> T(n) = T(n/2) + &Theta;(1) , where &Theta;(1) represents the comparisons done on the left hand side and the right hand side as 2 is a constant so &Theta;(1) is used instead <br>
-**Base case** when one starts expanding the above equation: 
-> T(1) = &Theta;(1) for one element array, the single element is going to be returned as a peak <br>
+T(n) = T(n/2) + &Theta;(1) , where &Theta;(1) represents the comparisons done on the left hand side and the right hand side as 2 is a constant so &Theta;(1) is used instead <br>
+**Base case** when one starts expanding the above equation: <br>
+T(1) = &Theta;(1) for one element array, the single element is going to be returned as a peak <br>
 If the equation is expanded all the way out, then <br>
 T(n) = &Theta;(1) + ... + &Theta;(1) <br>
                |___________| <br>
                 log<sub>2</sub>n times <br>
         = &Theta;(log<sub>2</sub>n)
+### 2D Version 
+|   |  c |   |   |
+|:-:|:-:|:-:|:-:|
+| b  |  a |  d |   | 
+|   |  e |   |   |
+|   |   |   |   |
+
+m columns and n rows <br>
+a is a 2D peak iff a &ge; b, a &ge; d, a &ge; c, a &ge; e <br>
+#### Greedy Ascent Algorithm
+It essentially picks a direction and tries to follow that direction in order to find a peak.
+
+|   |   | 10  |   |
+|:-:|:-:|:-:|:-:|
+| 14  |  13 |  12 |   | 
+| 15  |  9 | 11  |  17 |
+| 16  | 17  | 19  | 20  |
+
+Here if you're starting with 12, you're gonna go look to left and if it's greater than, you're gonna follow that direction and if it's less you're gonna go in the other direction. In this case you'll go 12, 13, 14, 15, 16, 17, 19, **20...the peak** <br>
+
+&Theta;(nm) Complexity <br>
+&Theta;(n<sup>2</sup>) if m = n <br>
+
+|   |   |   |
+|:-:|:-:|:-:|
+|   |   |   | i
+|   |   |   |
+|   |j=m/2|  |
+
+- Pick middle column j = m/2
+- Find a 1D-peak at (i,j)
+- Use (i,j) as a start to find a 1D-peak on row i
+^ ***Incorrect Algorithm*** <br>
+**Problem** : 2D peak may not exist on row i <br>
+For the above example if you start from 10 then 12 is the peak since 12 &ge; 10 and 12 &ge; 11. and for that row 14 will be the 1D peak but **14 is not a 2D peak** <br>
+**Attempt #2** <br>
+- Pick middle column j=m/2
+- Find global max on column j at (i,j)
+- Compare (i,j-1), (i,j), (i,j+1)--meaning once you find the maximum in the row look to the left and the right and compare
+- Pick left columns if (i,j-1) &gt; (i,j), and similarly for the right
+- If (i,j) &ge; (i,j-1), (i,j+1) => (i,j) is a 2D peak
+- Solve the new problem with half the number of columns
+- **Base case** when you have a single column, find the global maximum and you're done <br> i.e T(n,1) = &Theta;(n)
+##### Complexity
+T(n,m) = T(n,m/2) + &Theta;(n), meaning n is the number of rows and m is the number of columns, in one case you'll be breaking things down into half the number of columns which is m over 2 and in order to find the global maximum you'll be doing &Theta;(n) work <br>
+T(n,1) = &Theta;(n) <br>
+T(n,m) = &Theta;(n) + ... + &Theta;(n) <br>
+          |___________|<br> 
+                log<sub>2</sub>m times <br>
+        = &Theta;(log<sub>2</sub>m)
 

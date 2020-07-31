@@ -1,8 +1,4 @@
-|   |   |   |   |
-|:-:|:-:|:-:|:-:|
-|   |   |   |   |
-|   |   |   |   |
-|   |   |   |   |### Peak Finder
+### Peak Finder
 #### One dimensional version
 
 | a | b | c | d | e | f | g | h | i |
@@ -49,7 +45,7 @@ T(n) = &Theta;(1) + ... + &Theta;(1) <br>
 |:-:|:-:|:-:|:-:|
 | b  |  a |  d |   | 
 |   |  e |   |   |
-|   |   |   |   |
+|   | . |   |   |
 
 m columns and n rows <br>
 a is a 2D peak iff a &ge; b, a &ge; d, a &ge; c, a &ge; e <br>
@@ -74,24 +70,24 @@ Here if you're starting with 12, you're gonna go look to left and if it's greate
 |   |j=m/2|  |
 
 - Pick middle column j = m/2
-- Find a 1D-peak at (i,j)
-- Use (i,j) as a start to find a 1D-peak on row i
+- Find a 1D-peak at (i, j)
+- Use (i, j) as a start to find a 1D-peak on row i <br>
 ^ ***Incorrect Algorithm*** <br>
 **Problem** : 2D peak may not exist on row i <br>
 For the above example if you start from 10 then 12 is the peak since 12 &ge; 10 and 12 &ge; 11. and for that row 14 will be the 1D peak but **14 is not a 2D peak** <br>
 **Attempt #2** <br>
 - Pick middle column j=m/2
-- Find global max on column j at (i,j)
-- Compare (i,j-1), (i,j), (i,j+1)--meaning once you find the maximum in the row look to the left and the right and compare
-- Pick left columns if (i,j-1) &gt; (i,j), and similarly for the right
-- If (i,j) &ge; (i,j-1), (i,j+1) => (i,j) is a 2D peak
+- Find global max on column j at (i, j)
+- Compare (i, j-1), (i, j), (i, j+1)--meaning once you find the maximum in the row look to the left and the right and compare
+- Pick left columns if (i, j-1) &gt; (i, j), and similarly for the right
+- If (i, j) &ge; (i, j-1), (i, j+1) => (i, j) is a 2D peak
 - Solve the new problem with half the number of columns
-- **Base case** when you have a single column, find the global maximum and you're done <br> i.e T(n,1) = &Theta;(n)
+- **Base case** when you have a single column, find the global maximum and you're done <br> i.e T(n, 1) = &Theta;(n)
 ##### Complexity
-T(n,m) = T(n,m/2) + &Theta;(n), meaning n is the number of rows and m is the number of columns, in one case you'll be breaking things down into half the number of columns which is m over 2 and in order to find the global maximum you'll be doing &Theta;(n) work <br>
-T(n,1) = &Theta;(n) <br>
-T(n,m) = &Theta;(n) + ... + &Theta;(n) <br>
-          |___________|<br> 
+T(n, m) = T(n, m/2) + &Theta;(n), meaning n is the number of rows and m is the number of columns, in one case you'll be breaking things down into half the number of columns which is m over 2 and in order to find the global maximum you'll be doing &Theta;(n) work <br>
+T(n, 1) = &Theta;(n) <br>
+T(n, m) = &Theta;(n) + ... + &Theta;(n) <br>
+                |___________|<br> 
                 log<sub>2</sub>m times <br>
         = &Theta;(log<sub>2</sub>m)
 
